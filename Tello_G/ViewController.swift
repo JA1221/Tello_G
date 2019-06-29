@@ -38,6 +38,7 @@ class ViewController: UIViewController {
         
         //創建tello 的 socket陣列
         create_Tello_UDP()
+        recvData()
     }
     //======================= timer ==========================
     //timer開始
@@ -68,6 +69,7 @@ class ViewController: UIViewController {
     func timeHandle(){
         if csv[handle][0] == String(t)+" "{//秒數到 執行
             print(csv[handle])
+            send(csv[handle])
             handle += 1
             
             if csv[handle][0] == "end"{//遇到end 結束timer
