@@ -16,6 +16,11 @@
 		B482438D22C7841100689A5E /* Tello_GUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482438C22C7841100689A5E /* Tello_GUITests.swift */; };
 		B482439B22C78AA800689A5E /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B482439A22C78AA700689A5E /* music.mp3 */; };
 		B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */ = {isa = PBXBuildFile; fileRef = B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */; };
+		B482439F22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv in Resources */ = {isa = PBXBuildFile; fileRef = B482439E22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv */; };
+		B48243A622C79CF000689A5E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A122C79CEF00689A5E /* Result.swift */; };
+		B48243A722C79CF000689A5E /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A222C79CEF00689A5E /* UDPClient.swift */; };
+		B48243A822C79CF000689A5E /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A322C79CF000689A5E /* Socket.swift */; };
+		B48243A922C79CF000689A5E /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = B48243A422C79CF000689A5E /* yudpsocket.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,13 @@
 		B482438E22C7841100689A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B482439A22C78AA700689A5E /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TelloEDU_Charlie_Puth_Marvin_Gaye .csv"; sourceTree = "<group>"; };
+		B482439E22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TelloEDU_Charlie_Puth_Marvin_Gaye.csv; sourceTree = "<group>"; };
+		B48243A022C79CEF00689A5E /* Tello_G-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tello_G-Bridging-Header.h"; sourceTree = "<group>"; };
+		B48243A122C79CEF00689A5E /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		B48243A222C79CEF00689A5E /* UDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
+		B48243A322C79CF000689A5E /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		B48243A422C79CF000689A5E /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
+		B48243A522C79CF000689A5E /* SwiftSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftSocket.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,12 +93,19 @@
 		B482436022C7841000689A5E = {
 			isa = PBXGroup;
 			children = (
+				B48243A122C79CEF00689A5E /* Result.swift */,
+				B48243A322C79CF000689A5E /* Socket.swift */,
+				B48243A522C79CF000689A5E /* SwiftSocket.h */,
+				B48243A222C79CEF00689A5E /* UDPClient.swift */,
+				B48243A422C79CF000689A5E /* yudpsocket.c */,
+				B482439E22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv */,
 				B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */,
 				B482439A22C78AA700689A5E /* music.mp3 */,
 				B482436B22C7841000689A5E /* Tello_G */,
 				B482438022C7841100689A5E /* Tello_GTests */,
 				B482438B22C7841100689A5E /* Tello_GUITests */,
 				B482436A22C7841000689A5E /* Products */,
+				B48243A022C79CEF00689A5E /* Tello_G-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,6 +217,7 @@
 				TargetAttributes = {
 					B482436822C7841000689A5E = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 					B482437C22C7841100689A5E = {
 						CreatedOnToolsVersion = 10.2;
@@ -239,6 +259,7 @@
 				B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */,
 				B482437422C7841100689A5E /* Assets.xcassets in Resources */,
 				B482437222C7841000689A5E /* Main.storyboard in Resources */,
+				B482439F22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B48243A622C79CF000689A5E /* Result.swift in Sources */,
 				B482436F22C7841000689A5E /* ViewController.swift in Sources */,
+				B48243A922C79CF000689A5E /* yudpsocket.c in Sources */,
+				B48243A822C79CF000689A5E /* Socket.swift in Sources */,
+				B48243A722C79CF000689A5E /* UDPClient.swift in Sources */,
 				B482436D22C7841000689A5E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HL2QTQFA4Q;
 				INFOPLIST_FILE = Tello_G/Info.plist;
@@ -449,6 +475,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nkust.LU.Tello-G";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tello_G-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -458,6 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HL2QTQFA4Q;
 				INFOPLIST_FILE = Tello_G/Info.plist;
@@ -468,6 +497,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nkust.LU.Tello-G";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tello_G-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
