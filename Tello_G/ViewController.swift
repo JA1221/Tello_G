@@ -2,7 +2,10 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    var timer: Timer?
+    var t = 0.0
     var audioPlayer: AVAudioPlayer!
     var csv = [[String]]()
     
@@ -27,6 +30,18 @@ class ViewController: UIViewController {
         }
 
         print(csv)
+        
+        //timer
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {(_) in
+            self.t += 0.5
+            self.timeLabel.text = "time : " + String(self.t) + "s"
+        })
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if timer != nil{
+            timer?.invalidate()
+        }
     }
 }
 
