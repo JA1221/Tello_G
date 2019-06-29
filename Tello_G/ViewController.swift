@@ -1,17 +1,22 @@
-//
-//  ViewController.swift
-//  Tello_G
-//
-//  Created by 李岱米 on 2019/6/29.
-//
-
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
+    var audioPlayer: AVAudioPlayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
+        let url = Bundle.main.url(forResource: "music", withExtension: "mp3")
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url!)
+            audioPlayer.prepareToPlay()
+        } catch {
+            print("Error:", error.localizedDescription)
+        }
+        audioPlayer.play()
     }
 
 

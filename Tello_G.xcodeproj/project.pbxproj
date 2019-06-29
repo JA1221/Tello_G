@@ -14,6 +14,8 @@
 		B482437722C7841100689A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B482437522C7841100689A5E /* LaunchScreen.storyboard */; };
 		B482438222C7841100689A5E /* Tello_GTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482438122C7841100689A5E /* Tello_GTests.swift */; };
 		B482438D22C7841100689A5E /* Tello_GUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482438C22C7841100689A5E /* Tello_GUITests.swift */; };
+		B482439B22C78AA800689A5E /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B482439A22C78AA700689A5E /* music.mp3 */; };
+		B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */ = {isa = PBXBuildFile; fileRef = B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		B482438822C7841100689A5E /* Tello_GUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tello_GUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B482438C22C7841100689A5E /* Tello_GUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tello_GUITests.swift; sourceTree = "<group>"; };
 		B482438E22C7841100689A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B482439A22C78AA700689A5E /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TelloEDU_Charlie_Puth_Marvin_Gaye .csv"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 		B482436022C7841000689A5E = {
 			isa = PBXGroup;
 			children = (
+				B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */,
+				B482439A22C78AA700689A5E /* music.mp3 */,
 				B482436B22C7841000689A5E /* Tello_G */,
 				B482438022C7841100689A5E /* Tello_GTests */,
 				B482438B22C7841100689A5E /* Tello_GUITests */,
@@ -228,7 +234,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B482439B22C78AA800689A5E /* music.mp3 in Resources */,
 				B482437722C7841100689A5E /* LaunchScreen.storyboard in Resources */,
+				B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */,
 				B482437422C7841100689A5E /* Assets.xcassets in Resources */,
 				B482437222C7841000689A5E /* Main.storyboard in Resources */,
 			);
@@ -434,6 +442,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HL2QTQFA4Q;
 				INFOPLIST_FILE = Tello_G/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,6 +461,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HL2QTQFA4Q;
 				INFOPLIST_FILE = Tello_G/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
