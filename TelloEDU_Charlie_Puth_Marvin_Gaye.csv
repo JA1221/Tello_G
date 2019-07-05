@@ -1,45 +1,16 @@
-ip,192.168.2.111,192.168.2.112
-0.0 ,command,command
-1.0 ,takeoff,
-3.0 ,,takeoff
-5.0 ,jump 0 120 91 59 0 m2 m1,jump 0 120 91 59 0 m3 m2
-end,cw 45,cw 45
-15.0 ,ccw 90,ccw 90
-18.0 ,cw 45,cw 45
-end,jump 0 -220 91 99 0 m1 m3,jump 0 -240 91 99 0 m2 m4
-,cw 45,cw 45
-,ccw 90,ccw 90
-,cw 45,cw 45
-,jump 0 120 91 59 0 m3 m2,jump 0 120 91 59 0 m4 m3
-,cw 360,cw 360
-,jump 0 0 91 39 0 m2 m2,jump 0 0 91 39 0 m3 m3
-,flip l,
-,,
-,,flip l
-,,
-,right 20,right 30
-,jump 0 0 91 39 0 m2 m2,jump 0 0 91 39 0 m3 m3
-,,
-,,flip r
-,,
-,flip r,
-,left 20,left 20
-,jump 0 0 91 39 0 m2 m2,jump 0 0 91 39 0 m3 m3
-,flip l,flip r
-,flip r,flip l
-,left 60,right 90
-,flip r,flip l
-,jump 0 0 91 39 0 m2 m2,jump 0 0 91 39 0 m3 m3
-,flip l,flip r
-,right 40,left 40
-,jump 0 0 91 39 0 m2 m2,jump 0 0 91 39 0 m3 m3
-,up 20,up 20
-,jump 0 120 61 49 0 m2 m1,jump 0 -120 61 49 0 m3 m4
-,jump 0 -120 61 49 0 m1 m2,jump 0 120 61 49 0 m4 m3
-,jump 0 120 101 49 0 m2 m1,jump 0 -120 101 49 0 m3 m4
-,jump 0 -120 61 49 0 m1 m2,jump 0 120 61 49 0 m4 m3
-,jump -120 0 101 49 0 m2 m6,jump -120 0 101 49 0 m3 m7
-,jump 0 120 61 49 0 m6 m5,jump 0 -120 61 49 0 m7 m8
-,jump 120 -120 121 49 0 m5 m2,jump 120 120 121 49 0 m8 m3
-end,land,land
-,land,land
+ip,192.168.43.249,192.168.43.103
+0,command,command
+0.5,mon,mon
+1,takeoff,
+3,,takeoff
+13,go 0 0 100 100 m2,go 0 0 100 100 m3
+19,cw 45,ccw 45
+23,ccw 45,cw 45
+27,go 0 0 100 100 m2,go 0 0 100 100 m3
+34,go 0 0 50 100 m2,jump -50 0 100 100 0 m3 m1
+41,jump 50 -50 50 100 0 m2 m3,go 0 0 50 100 m1
+48,go 0 0 50 100 m3,jump 50 50 100 100 0 m1 m4
+55,go 0 0 100 100 m3,go 0 0 100 100 m4
+62,flip b,flip b
+70,land,land
+end,,

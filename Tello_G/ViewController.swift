@@ -3,20 +3,31 @@ import AVFoundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var instruction: UILabel!
+    @IBOutlet weak var flyBt: UISwitch!
     
+    //timer計時器
     var timer: Timer?
     var timerFlag = false
     var t = 0.0
+    //音樂
     var audioPlayer: AVAudioPlayer!
+    //csv處理
     var csv = [[String]]()
-    var handle = 1
+    var handle = 1 //處理第幾行
+    //tello Socket
     var tello_Num = 0
-    var tello = [UDPClient]()
+    var tello = [UDPClient]()//陣列宣告
     let port = 8889
+    let snedPort_1st = 60000
     var data = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    //圓角
+        timeLabel.layer.cornerRadius = 10
+        instruction.layer.cornerRadius = 10
         
         //play music
         let musicUrl = Bundle.main.url(forResource: "music", withExtension: "mp3")
@@ -26,9 +37,8 @@ class ViewController: UIViewController {
         } catch {
             print("Error:", error.localizedDescription)
         }
-        audioPlayer.play()
         
-        //read csv
+    //read csv ＆ 存成二維陣列
         let csvUrl = Bundle.main.url(forResource: "TelloEDU_Charlie_Puth_Marvin_Gaye", withExtension: "csv")
         let line = try! String(contentsOf: csvUrl!).components(separatedBy: "\r\n")
         for i in line{
@@ -36,26 +46,36 @@ class ViewController: UIViewController {
         }
         print(csv)
         
-        //創建tello 的 socket陣列
+    //創建tello 的 socket陣列
         create_Tello_UDP()
         recvData()
     }
-    //======================= timer ==========================
-    //timer開始
+//======================= timer ==========================
+//timer開始
     func timerStart(){
         if timerFlag==true {return}//運行中 return
-        
-        timerFlag = true
+        timerFlag = true//旗標設定
+
+        //接收資料區清空 ＆ 處理
+        data_clear()
         timeHandle()
-        //創建timer
+        
+        //創建timer 每0.5秒執行一次
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {(_) in
             self.t += 0.5
             self.timeHandle()
-            self.timeLabel.text = "time : " + String(self.t) + "s"
+            self.timeLabel.text = "Time : " + String(self.t) + "s"
         })
     }
-    //結束timer
+    
+//結束timer
     func timerStop(){
+        //switch 關
+        flyBt.setOn(false, animated: true)
+        //停止音樂並關歸零
+        audioPlayer.stop()
+        audioPlayer.currentTime = 0
+        
         if timer != nil{//當timer存在時 廢止
             timer?.invalidate()
             timer = nil
@@ -63,26 +83,45 @@ class ViewController: UIViewController {
             t = 0.0
             handle = 1
             timerFlag = false
+            self.timeLabel.text = "Time : " + String(self.t) + "s"
         }
     }
-    //timer處理
+//timer處理
     func timeHandle(){
-        if csv[handle][0] == String(t)+" "{//秒數到 執行
+        if Double(csv[handle][0]) == t{//秒數到指令設定的秒數 執行
             print(csv[handle])
-            send(csv[handle])
-            handle += 1
             
-            if csv[handle][0] == "end"{//遇到end 結束timer
+            for i in 1...tello_Num{
+                if csv[handle][i] != ""{//i號機有指令
+                    //前一個沒做完 (第一個指令除外) 啟動安全機制
+                    if data[i - 1] != "ok" && t != 0.0{
+                        //stop 編號 1 ~ n
+                        print(String(i) + "號無人機脫隊, 全體迫降")
+                        show(String(i) + "號無人機脫隊, 全體迫降")
+                        send("land")
+                        timerStop()
+                        return
+                    //安全 可執行指令前清空接收區
+                    }else{
+                        data[i - 1] = ""
+                    }
+                }
+            }
+            send(csv[handle])//傳送指令
+            handle += 1//下一條指令
+            
+            if csv[handle][0] == "end" || csv[handle][0] == ""{//遇到end or 沒資料時 結束timer
                 timerStop()
+                show("結束")
             }
         }
     }
-    //=============== socket ===============
-    func calc_Tello_Num(){
+//=============== socket ===============
+    func calc_Tello_Num(){//計算tello數量
         tello_Num = csv[0].count - 1
-        print(tello_Num)
     }
-    func create_Tello_UDP(){
+    
+    func create_Tello_UDP(){//創建udp socket
         calc_Tello_Num()
         
         for i in 1...tello_Num{
@@ -90,42 +129,83 @@ class ViewController: UIViewController {
         }
     }
     
-    func close_Tello_UDP(){
+    func close_Tello_UDP(){//關閉 udp socket
         calc_Tello_Num()
         for i in 1...tello_Num{
-            tello[i].close()
+            tello[i-1].close()
         }
     }
-    //============== sned & recv ==============
-    func send(_ s: [String]){
+//============== sned & recv ==============
+    func send(_ s: [String]){//傳送String陣列給 所有無人機
         for i in 1...tello_Num{
             _ = tello[i - 1].send(string: s[i])
         }
     }
-    
-    func recvData(){
+    func send(_ s: String){//傳送單一指令給 所有無人機
+        for i in 1...tello_Num{
+            _ = tello[i - 1].send(string: s)
+        }
+    }
+    func send(_ n:Int, _ s: String){//傳送單一指令給 指定無人機
+            _ = tello[n].send(string: s)
+    }
+    func recvData(){//接收資料 多執行緒
         for i in 1...tello_Num{
             data.append("")
-            
-            let queue = DispatchQueue(label: "com.nkust.tello" + String(i))//宣告 label需要唯一性
+            let queue = DispatchQueue(label: "com.nkust.tello" + String(i))//宣告 label需要唯一性 無人機個別擁有 獨立執行緒
             queue.async {
                 while true{
                     let s = self.tello[i - 1].recv(20)//最多接收20
                     self.data[i-1] = self.get_String_Data(s.0!)
-                    print("Tello" + String(i) + "recv:" + self.data[i-1])
+                    print("Tello" + String(i) + ", recv:" + self.data[i-1])//編號 1 ~ n
                 }
             }
         }
     }
-    func get_String_Data(_ data: [Byte]) -> (String){
+    func get_String_Data(_ data: [Byte]) -> (String){//轉換陣列->String
         let string1 = String(data: Data(data), encoding: .utf8) ?? ""
         return string1
     }
-    //================== BT =====================
-    @IBAction func timerStart(_ sender: Any) {
-        timerStart()
+    
+    func data_clear(){//清空接收的data
+        for i in 1...tello_Num{
+            data[i - 1] = ""
+        }
     }
-    //=================================================
+//================== BT =====================
+
+    @IBAction func command(_ sender: Any) {
+        send("command")
+    }
+    @IBAction func takeoff(_ sender: Any) {
+        send("takeoff")
+    }
+    @IBAction func land(_ sender: Any) {
+        send("land")
+    }
+    @IBAction func emergency(_ sender: Any) {
+        send("emergency")
+    }
+//=====================================
+    @IBAction func begin(_ sender: UISwitch) {
+        if sender.isOn == true{
+            audioPlayer.play()//播放音樂
+            timerStart()
+            show("開始")
+        }else{
+            //tello降落
+            timerStop()
+            send("land")
+            sleep(3)
+            send("emergency")//安全起見 三秒後關閉引擎
+            show("手動結束！")
+        }
+    }
+    
+    func show(_ s:String){
+        instruction.text = s
+    }
+//=================================================
     override func viewDidDisappear(_ animated: Bool) {
         timerStop()
         close_Tello_UDP()

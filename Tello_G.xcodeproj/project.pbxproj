@@ -21,6 +21,7 @@
 		B48243A722C79CF000689A5E /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A222C79CEF00689A5E /* UDPClient.swift */; };
 		B48243A822C79CF000689A5E /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A322C79CF000689A5E /* Socket.swift */; };
 		B48243A922C79CF000689A5E /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = B48243A422C79CF000689A5E /* yudpsocket.c */; };
+		B48243AB22C87FCC00689A5E /* telloJPG.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B48243AA22C87FCB00689A5E /* telloJPG.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		B48243A322C79CF000689A5E /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		B48243A422C79CF000689A5E /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
 		B48243A522C79CF000689A5E /* SwiftSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftSocket.h; sourceTree = "<group>"; };
+		B48243AA22C87FCB00689A5E /* telloJPG.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = telloJPG.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		B482436022C7841000689A5E = {
 			isa = PBXGroup;
 			children = (
+				B48243AA22C87FCB00689A5E /* telloJPG.jpeg */,
 				B48243A122C79CEF00689A5E /* Result.swift */,
 				B48243A322C79CF000689A5E /* Socket.swift */,
 				B48243A522C79CF000689A5E /* SwiftSocket.h */,
@@ -259,6 +262,7 @@
 				B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */,
 				B482437422C7841100689A5E /* Assets.xcassets in Resources */,
 				B482437222C7841000689A5E /* Main.storyboard in Resources */,
+				B48243AB22C87FCC00689A5E /* telloJPG.jpeg in Resources */,
 				B482439F22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
