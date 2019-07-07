@@ -131,6 +131,7 @@ class ViewController: UIViewController {
     
     func create_Tello_UDP(){//創建udp socket
         calc_Tello_Num()
+        close_Tello_UDP()
         
         for i in 1...tello_Num{
             tello.append(UDPClient(address: csv[0][i], port: Int32(port), myAddresss: "", myPort: Int32(sendPort_1st + i)))
@@ -138,10 +139,12 @@ class ViewController: UIViewController {
     }
     
     func close_Tello_UDP(){//關閉 udp socket
-        calc_Tello_Num()
-        for i in 1...tello_Num{
-            tello[i-1].close()
+        //關閉socket
+        for i in 0..<tello.count{
+            tello[i].close()
         }
+        //將Tello 陣列初始化
+        tello = [UDPClient]()
     }
 //============== sned & recv ==============
     func send(_ s: [String]){//傳送String陣列給 所有無人機
@@ -238,8 +241,6 @@ class ViewController: UIViewController {
 //=================================================
     override func viewDidDisappear(_ animated: Bool) {
         timerStop()
-//        close_Tello_UDP()
-        print("leave")
     }
 }
 
