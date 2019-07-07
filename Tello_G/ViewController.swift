@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var tello_Num = 0
     var tello = [UDPClient]()//陣列宣告
     let port = 8889
-    let snedPort_1st = 60000
+    let sendPort_1st = 60000
     var data = [String]()
     
     override func viewDidLoad() {
@@ -40,11 +40,19 @@ class ViewController: UIViewController {
         
     //read csv ＆ 存成二維陣列
         let csvUrl = Bundle.main.url(forResource: "TelloEDU_Charlie_Puth_Marvin_Gaye", withExtension: "csv")
-        let line = try! String(contentsOf: csvUrl!).components(separatedBy: "\r\n")
-        for i in line{
-            csv.append(i.components(separatedBy: ","))
-        }
+        let content = try! String(contentsOf: csvUrl!)
+        csv = csv_To_Array(content)
         print(csv)
+        
+    //將csv存入檔案夾 default.csv
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileURL = dir.appendingPathComponent("default.csv")
+        do{
+            try content.write(to: fileURL, atomically: false, encoding: .utf8)
+        }
+        catch{
+            print("Error:\(error)")
+        }
         
     //創建tello 的 socket陣列
         create_Tello_UDP()
@@ -125,7 +133,7 @@ class ViewController: UIViewController {
         calc_Tello_Num()
         
         for i in 1...tello_Num{
-            tello.append(UDPClient(address: csv[0][i], port: Int32(port), myAddresss: "", myPort: Int32(port)))
+            tello.append(UDPClient(address: csv[0][i], port: Int32(port), myAddresss: "", myPort: Int32(sendPort_1st + i)))
         }
     }
     
@@ -155,7 +163,11 @@ class ViewController: UIViewController {
             let queue = DispatchQueue(label: "com.nkust.tello" + String(i))//宣告 label需要唯一性 無人機個別擁有 獨立執行緒
             queue.async {
                 while true{
+                    if self.tello[i-1].fd == nil{continue}
+                    print("test")
                     let s = self.tello[i - 1].recv(20)//最多接收20
+                    if s.0==nil{ continue}
+                    
                     self.data[i-1] = self.get_String_Data(s.0!)
                     print("Tello" + String(i) + ", recv:" + self.data[i-1])//編號 1 ~ n
                 }
@@ -205,10 +217,38 @@ class ViewController: UIViewController {
     func show(_ s:String){
         instruction.text = s
     }
+//=================== read CSV ====================
+    @IBAction func readCSV(_ sender: Any) {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.plain-text"], in: .open)
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = false
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    func csv_To_Array(_ s: String)->([[String]]){
+        var array = [[String]]()
+        
+        let line = s.components(separatedBy: "\r\n")
+        for i in line{
+            array.append(i.components(separatedBy: ","))
+        }
+        
+        return array
+    }
 //=================================================
     override func viewDidDisappear(_ animated: Bool) {
         timerStop()
-        close_Tello_UDP()
+//        close_Tello_UDP()
+        print("leave")
     }
 }
 
+extension ViewController: UIDocumentPickerDelegate{
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let selectedFileURL = urls.first else{ return}
+        
+        let s = try! String(contentsOf: selectedFileURL)
+        csv = csv_To_Array(s)
+        print(csv)
+    }
+}
