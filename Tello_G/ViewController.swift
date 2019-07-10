@@ -44,19 +44,33 @@ class ViewController: UIViewController {
         csv = csv_To_Array(content)
         print(csv)
         
-    //將csv存入檔案夾 default.csv
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileURL = dir.appendingPathComponent("default.csv")
-        do{
-            try content.write(to: fileURL, atomically: false, encoding: .utf8)
-        }
-        catch{
-            print("Error:\(error)")
-        }
+    //將預設 csv 存入檔案夾 default.csv
+        saveFile(source: csvUrl!, destination: nil, fileName: "default.csv")
+    //將預設 music 存入檔案夾 default.mp3
+        saveFile(source: musicUrl!, destination: nil, fileName: "default.mp3")
         
     //創建tello 的 socket陣列
         create_Tello_UDP()
         recvData()
+    }
+//==================== 檔案處理 ==========================
+    func saveFile(source: URL, destination: URL?, fileName: String){
+        var dest = destination
+        if dest==nil{
+            dest = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        }
+        dest = dest!.appendingPathComponent(fileName)
+        
+        if FileManager.default.fileExists(atPath: dest!.path){
+            print(fileName + " already exists!")
+        }else{
+            do{
+                try FileManager.default.copyItem(at: source, to: dest!)
+            }
+            catch{
+                print("Error: \(error)")
+            }
+        }
     }
 //======================= timer ==========================
 //timer開始
@@ -106,6 +120,7 @@ class ViewController: UIViewController {
                         //stop 編號 1 ~ n
                         print(String(i) + "號無人機脫隊, 全體迫降")
                         show(String(i) + "號無人機脫隊, 全體迫降")
+                        send("stop")
                         send("land")
                         timerStop()
                         return
@@ -201,7 +216,7 @@ class ViewController: UIViewController {
     @IBAction func emergency(_ sender: Any) {
         send("emergency")
     }
-//=====================================
+//=================== Switch ==================
     @IBAction func begin(_ sender: UISwitch) {
         if sender.isOn == true{
             audioPlayer.play()//播放音樂
@@ -210,6 +225,7 @@ class ViewController: UIViewController {
         }else{
             //tello降落
             timerStop()
+            send("stop")
             send("land")
             sleep(3)
             send("emergency")//安全起見 三秒後關閉引擎
