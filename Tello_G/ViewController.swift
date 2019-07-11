@@ -2,6 +2,7 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
+    @IBOutlet weak var fileNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var instruction: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
@@ -181,14 +182,14 @@ class ViewController: UIViewController {
             let queue = DispatchQueue(label: "com.nkust.tello" + String(i))//宣告 label需要唯一性 無人機個別擁有 獨立執行緒
             queue.async {
                 while true{
-                    if self.tello[i-1].fd == nil{continue}
-                    print("test")
+                    print(String(i) + " is listening.")
                     let s = self.tello[i - 1].recv(20)//最多接收20
-                    if s.0==nil{ continue}
+                    if s.0==nil{break}//被強制結束 跳出
                     
                     self.data[i-1] = self.get_String_Data(s.0!)
                     print("Tello" + String(i) + ", recv:" + self.data[i-1])//編號 1 ~ n
                 }
+                print(String(i) + " is closed.")
             }
         }
     }
@@ -228,7 +229,7 @@ class ViewController: UIViewController {
             send("stop")
             send("land")
             sleep(3)
-            send("emergency")//安全起見 三秒後關閉引擎
+            send("emergency")//安全起見 三秒後關閉引擎t
             show("手動結束！")
         }
     }
@@ -267,5 +268,8 @@ extension ViewController: UIDocumentPickerDelegate{
         let s = try! String(contentsOf: selectedFileURL)
         csv = csv_To_Array(s)
         print(csv)
+        create_Tello_UDP()//重新宣告
+        recvData()//重新接收 UDP
+        fileNameLabel.text = selectedFileURL.lastPathComponent//顯示csv檔名
     }
 }
