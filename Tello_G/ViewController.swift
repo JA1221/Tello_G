@@ -2,7 +2,8 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-    @IBOutlet weak var fileNameLabel: UILabel!
+    @IBOutlet weak var csvNameLabel: UILabel!
+    @IBOutlet weak var musicNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var instruction: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
@@ -30,7 +31,7 @@ class ViewController: UIViewController {
         timeLabel.layer.cornerRadius = 10
         instruction.layer.cornerRadius = 10
         
-        //play music
+    //prepare music
         let musicUrl = Bundle.main.url(forResource: "music", withExtension: "mp3")
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: musicUrl!)
@@ -81,7 +82,7 @@ class ViewController: UIViewController {
 
         //接收資料區清空 ＆ 處理
         data_clear()
-        timeHandle()
+//        timeHandle()
         
         //創建timer 每0.5秒執行一次
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {(_) in
@@ -255,6 +256,34 @@ class ViewController: UIViewController {
         
         return array
     }
+//================== read mp3 =====================
+    @IBAction func readMusic(_ sender: Any) {
+        let musicPicker = UIDocumentPickerViewController(documentTypes: ["public.mp3"], in: .open)
+        musicPicker.delegate = self
+        musicPicker.allowsMultipleSelection = false
+        present(musicPicker, animated: true, completion: nil)
+    }
+//================== new ==========================
+    func isIP(_ IP:String?) -> Bool{
+        guard let IP = IP else { return false}//nil
+        
+        let s = IP.components(separatedBy: ".")
+        
+        if s.count != 4{ return false}//not *.*.*.*
+        
+        for i in s{
+            guard let n = Int(i) else{ return false}//not Int
+            
+            if n < 0 || n > 255{ return false}//not 0~255
+        }
+        
+        return true
+    }
+    func alert(string:String?){
+        let alert = UIAlertController(title: "訊息窗", message: string, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 //=================================================
     override func viewDidDisappear(_ animated: Bool) {
         timerStop()
@@ -265,11 +294,26 @@ extension ViewController: UIDocumentPickerDelegate{
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let selectedFileURL = urls.first else{ return}
         
-        let s = try! String(contentsOf: selectedFileURL)
-        csv = csv_To_Array(s)
-        print(csv)
-        create_Tello_UDP()//重新宣告
-        recvData()//重新接收 UDP
-        fileNameLabel.text = selectedFileURL.lastPathComponent//顯示csv檔名
+        let fileName = selectedFileURL.lastPathComponent.components(separatedBy: ".")
+        let fileType = fileName[fileName.count - 1]//取副檔名
+        
+        if fileType == "csv"{
+            let s = try! String(contentsOf: selectedFileURL)
+            csv = csv_To_Array(s)
+            print(csv)
+            create_Tello_UDP()//重新宣告
+            recvData()//重新接收 UDP
+            csvNameLabel.text = selectedFileURL.lastPathComponent//顯示csv檔名
+        }else if fileType == "mp3"{
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: selectedFileURL)
+                audioPlayer.prepareToPlay()
+                musicNameLabel.text = selectedFileURL.lastPathComponent
+            } catch {
+                print("Error:", error.localizedDescription)
+            }
+        }else{
+            alert(string: "僅能讀取 .csv 或 .mp3")
+        }
     }
 }

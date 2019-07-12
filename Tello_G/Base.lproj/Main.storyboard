@@ -97,6 +97,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2a-QR-ewR">
+                                <rect key="frame" x="293" y="53" width="72" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="讀取Music"/>
+                                <connections>
+                                    <action selector="readMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kvm-RN-yDg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="default.mp3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-pu-LGj">
+                                <rect key="frame" x="16" y="58" width="277" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time : 0s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qil-kv-L8W">
                                 <rect key="frame" x="16" y="91" width="343" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -110,9 +125,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="fileNameLabel" destination="NCO-wi-kas" id="S4F-oH-EqL"/>
+                        <outlet property="csvNameLabel" destination="NCO-wi-kas" id="plV-kB-mwt"/>
                         <outlet property="flyBt" destination="2fK-Ab-aPW" id="Dod-Gw-vNU"/>
                         <outlet property="instruction" destination="BwY-ll-LAK" id="XBv-F8-blB"/>
+                        <outlet property="musicNameLabel" destination="dIL-pu-LGj" id="Nks-9R-SAj"/>
                         <outlet property="timeLabel" destination="qil-kv-L8W" id="5Vz-y4-PMt"/>
                     </connections>
                 </viewController>
