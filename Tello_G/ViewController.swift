@@ -8,6 +8,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var instruction: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
     
+    let defaultSpeedValue = 50
 //timer計時器
     var timer: Timer?
     var timerFlag = false
@@ -220,6 +221,49 @@ class ViewController: UIViewController {
     @IBAction func emergency(_ sender: Any) {
         send("emergency")
     }
+    
+    @IBAction func flipF(_ sender: Any) {//前翻
+        send("flip f");
+    }
+    @IBAction func flipL(_ sender: Any) {//左翻
+        send("flip l")
+    }
+    @IBAction func flipB(_ sender: Any) {//後翻
+        send("flip b")
+    }
+    @IBAction func flipR(_ sender: Any) {//右翻
+        send("flip r")
+    }
+    @IBAction func stop(_ sender: Any) {//停止動作
+        send("stop")
+    }
+    
+    @IBAction func forward(_ sender: Any) {
+        send("forward " + String(defaultSpeedValue))
+    }
+    @IBAction func back(_ sender: Any) {
+        send("back " + String(defaultSpeedValue))
+    }
+    @IBAction func right(_ sender: Any) {
+        send("right " + String(defaultSpeedValue))
+    }
+    @IBAction func left(_ sender: Any) {
+        send("left " + String(defaultSpeedValue))
+    }
+    
+    @IBAction func up(_ sender: Any) {
+        send("up " + String(defaultSpeedValue))
+    }
+    @IBAction func down(_ sender: Any) {
+        send("down " + String(defaultSpeedValue))
+    }
+    @IBAction func cw(_ sender: Any) {
+        send("cw 45")
+    }
+    @IBAction func ccw(_ sender: Any) {
+        send("ccw 45")
+    }
+    
 //=================== Switch ==================
     @IBAction func begin(_ sender: UISwitch) {
         if sender.isOn == true{
@@ -238,12 +282,7 @@ class ViewController: UIViewController {
             alert("已手動結束！")
         }
     }
-    
-    func show(_ s:String){
-        DispatchQueue.main.async {
-            self.instruction.text = s
-        }
-    }
+
 //=================== read CSV ====================
     @IBAction func readCSV(_ sender: Any) {
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.plain-text"], in: .open)
@@ -269,7 +308,7 @@ class ViewController: UIViewController {
         musicPicker.allowsMultipleSelection = false
         present(musicPicker, animated: true, completion: nil)
     }
-//================== new ==========================
+//================== 檢查IP格式 ==========================
     func isIP(_ IP:String?) -> Bool{
         guard let IP = IP else { return false}//nil
         
@@ -298,11 +337,17 @@ class ViewController: UIViewController {
         
         return check
     }
-    
+//===================== 顯示 ===========================
     func alert(_ string:String?){
         let alert = UIAlertController(title: "訊息窗", message: string, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    func show(_ s:String){
+        DispatchQueue.main.async {
+            self.instruction.text = s
+        }
     }
 //=================================================
     override func viewDidDisappear(_ animated: Bool) {
@@ -310,6 +355,7 @@ class ViewController: UIViewController {
     }
 }
 
+//實作檔案選取
 extension ViewController: UIDocumentPickerDelegate{
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let selectedFileURL = urls.first else{ return}
