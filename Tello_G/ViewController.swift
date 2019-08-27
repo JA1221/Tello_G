@@ -8,22 +8,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var instruction: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
     
-    //timer計時器
+//timer計時器
     var timer: Timer?
     var timerFlag = false
     var t = 0.0
-    //音樂
+//音樂
     var audioPlayer: AVAudioPlayer!
-    //csv處理
+//csv處理
     var csv = [[String]]()
     var handle = 1 //處理第幾行
-    //tello Socket
+//tello Socket
     var tello_Num = 0
-    var tello = [UDPClient]()//陣列宣告
-    let port = 8889
-    let sendPort_1st = 60000
+    var tello = [UDPClient]() //UDP 通訊陣列
+    let port = 8889 //Tello 接收端口
+    let sendPort_1st = 60000 // 發送端口起始編號 ex. 1:6000, 2:6001, 3: 6002
     var data = [String]()
-    
+//==================== 畫面載入 ==========================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,9 +46,8 @@ class ViewController: UIViewController {
         csv = csv_To_Array(content)
         print(csv)
         
-    //將預設 csv 存入檔案夾 default.csv
+    //將預設檔案寫入資料夾
         saveFile(source: csvUrl!, destination: nil, fileName: "default.csv")
-    //將預設 music 存入檔案夾 default.mp3
         saveFile(source: musicUrl!, destination: nil, fileName: "default.mp3")
         
     //創建tello 的 socket陣列
@@ -82,7 +81,7 @@ class ViewController: UIViewController {
 
         //接收資料區清空 ＆ 處理
         data_clear()
-//        timeHandle()
+        timeHandle()
         
         //創建timer 每0.5秒執行一次
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {(_) in
@@ -94,16 +93,16 @@ class ViewController: UIViewController {
     
 //結束timer
     func timerStop(){
-        //switch 關
+    //switch 關
         flyBt.setOn(false, animated: true)
-        //停止音樂並關歸零
+    //停止音樂並關歸零
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         
         if timer != nil{//當timer存在時 廢止
             timer?.invalidate()
             timer = nil
-            //初始化
+        //初始化
             t = 0.0
             handle = 1
             timerFlag = false
@@ -135,7 +134,7 @@ class ViewController: UIViewController {
             send(csv[handle])//傳送指令
             handle += 1//下一條指令
             
-            if csv[handle][0] == "end" || csv[handle][0] == ""{//遇到end or 沒資料時 結束timer
+            if csv[handle][0] == "end" || csv[handle][0] == ""{//時間軸遇到 "end" or 沒標示時間 -> 結束timer
                 timerStop()
                 show("結束")
             }
@@ -147,8 +146,8 @@ class ViewController: UIViewController {
     }
     
     func create_Tello_UDP(){//創建udp socket
-        calc_Tello_Num()
         close_Tello_UDP()
+        calc_Tello_Num()
         
         for i in 1...tello_Num{
             tello.append(UDPClient(address: csv[0][i], port: Int32(port), myAddresss: "", myPort: Int32(sendPort_1st + i)))
@@ -178,19 +177,22 @@ class ViewController: UIViewController {
             _ = tello[n].send(string: s)
     }
     func recvData(){//接收資料 多執行緒
-        for i in 1...tello_Num{
-            data.append("")
-            let queue = DispatchQueue(label: "com.nkust.tello" + String(i))//宣告 label需要唯一性 無人機個別擁有 獨立執行緒
+        data = [String]() //接收區大小重設
+        
+        for i in 0..<tello.count{
+            data.append("")//增加陣列
+            let queue = DispatchQueue(label: "com.nkust.tello" + String(i + 1))//宣告 label需要唯一性 無人機個別擁有 獨立執行緒
+            
             queue.async {
                 while true{
-                    print(String(i) + " is listening.")
-                    let s = self.tello[i - 1].recv(20)//最多接收20
+                    print(String(i + 1) + " is listening.")
+                    let s = self.tello[i].recv(20)//接收 最多20字元data
                     if s.0==nil{break}//被強制結束 跳出
                     
-                    self.data[i-1] = self.get_String_Data(s.0!)
-                    print("Tello" + String(i) + ", recv:" + self.data[i-1])//編號 1 ~ n
+                    self.data[i] = self.get_String_Data(s.0!)//儲存
+                    print("Tello" + String(i + 1) + ", recv:" + self.data[i])//印出接收到的資料(ex. Tello1, recv:OK)
                 }
-                print(String(i) + " is closed.")
+                print("Tello" + String(i + 1) + " is closed.")
             }
         }
     }
@@ -200,8 +202,8 @@ class ViewController: UIViewController {
     }
     
     func data_clear(){//清空接收的data
-        for i in 1...tello_Num{
-            data[i - 1] = ""
+        for i in 0..<data.count{
+            data[i] = ""
         }
     }
 //================== BT =====================
@@ -222,21 +224,25 @@ class ViewController: UIViewController {
     @IBAction func begin(_ sender: UISwitch) {
         if sender.isOn == true{
             audioPlayer.play()//播放音樂
-            timerStart()
+            timerStart()//timer啟動
             show("開始")
         }else{
             //tello降落
             timerStop()
             send("stop")
             send("land")
+            show("降落中...三秒後關閉引擎")
             sleep(3)
-            send("emergency")//安全起見 三秒後關閉引擎t
+            send("emergency")//安全起見 三秒後關閉引擎
             show("手動結束！")
+            alert("已手動結束！")
         }
     }
     
     func show(_ s:String){
-        instruction.text = s
+        DispatchQueue.main.async {
+            self.instruction.text = s
+        }
     }
 //=================== read CSV ====================
     @IBAction func readCSV(_ sender: Any) {
@@ -268,7 +274,6 @@ class ViewController: UIViewController {
         guard let IP = IP else { return false}//nil
         
         let s = IP.components(separatedBy: ".")
-        
         if s.count != 4{ return false}//not *.*.*.*
         
         for i in s{
@@ -279,7 +284,22 @@ class ViewController: UIViewController {
         
         return true
     }
-    func alert(string:String?){
+    
+    func check_CSV_IPformat(_ csv:[[String]]) ->Bool{
+        var check = true
+        
+        if csv[0].count < 2 {//沒填入IP
+            return false
+        }
+        
+        for i in 1..<csv[0].count{
+            check = check && isIP(csv[0][i])
+        }
+        
+        return check
+    }
+    
+    func alert(_ string:String?){
         let alert = UIAlertController(title: "訊息窗", message: string, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -297,23 +317,26 @@ extension ViewController: UIDocumentPickerDelegate{
         let fileName = selectedFileURL.lastPathComponent.components(separatedBy: ".")
         let fileType = fileName[fileName.count - 1]//取副檔名
         
+        //*** csv檔處理 ***
         if fileType == "csv"{
             let s = try! String(contentsOf: selectedFileURL)
+            
             csv = csv_To_Array(s)
             print(csv)
-            create_Tello_UDP()//重新宣告
-            recvData()//重新接收 UDP
+            create_Tello_UDP()//重新宣告UDP
+            recvData()//開啟資料接收
             csvNameLabel.text = selectedFileURL.lastPathComponent//顯示csv檔名
+        //*** mp3檔處理 ***
         }else if fileType == "mp3"{
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: selectedFileURL)
                 audioPlayer.prepareToPlay()
-                musicNameLabel.text = selectedFileURL.lastPathComponent
+                musicNameLabel.text = selectedFileURL.lastPathComponent//顯示mp3檔名
             } catch {
                 print("Error:", error.localizedDescription)
             }
         }else{
-            alert(string: "僅能讀取 .csv 或 .mp3")
+            alert("僅能讀取 .csv 或 .mp3")
         }
     }
 }
