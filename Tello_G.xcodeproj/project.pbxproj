@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B42CBE5523178A7B00B0A5D9 /* Stepsheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = B42CBE5323178A7B00B0A5D9 /* Stepsheet.csv */; };
+		B42CBE5623178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B42CBE5423178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 */; };
 		B482436D22C7841000689A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482436C22C7841000689A5E /* AppDelegate.swift */; };
 		B482436F22C7841000689A5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482436E22C7841000689A5E /* ViewController.swift */; };
 		B482437222C7841000689A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B482437022C7841000689A5E /* Main.storyboard */; };
@@ -14,9 +16,6 @@
 		B482437722C7841100689A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B482437522C7841100689A5E /* LaunchScreen.storyboard */; };
 		B482438222C7841100689A5E /* Tello_GTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482438122C7841100689A5E /* Tello_GTests.swift */; };
 		B482438D22C7841100689A5E /* Tello_GUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482438C22C7841100689A5E /* Tello_GUITests.swift */; };
-		B482439B22C78AA800689A5E /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B482439A22C78AA700689A5E /* music.mp3 */; };
-		B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */ = {isa = PBXBuildFile; fileRef = B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */; };
-		B482439F22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv in Resources */ = {isa = PBXBuildFile; fileRef = B482439E22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv */; };
 		B48243A622C79CF000689A5E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A122C79CEF00689A5E /* Result.swift */; };
 		B48243A722C79CF000689A5E /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A222C79CEF00689A5E /* UDPClient.swift */; };
 		B48243A822C79CF000689A5E /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48243A322C79CF000689A5E /* Socket.swift */; };
@@ -42,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B42CBE5323178A7B00B0A5D9 /* Stepsheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Stepsheet.csv; sourceTree = "<group>"; };
+		B42CBE5423178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ed Sheeran - Beautiful People.mp3"; sourceTree = "<group>"; };
 		B482436922C7841000689A5E /* Tello_G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tello_G.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B482436C22C7841000689A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B482436E22C7841000689A5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,9 +56,6 @@
 		B482438822C7841100689A5E /* Tello_GUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tello_GUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B482438C22C7841100689A5E /* Tello_GUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tello_GUITests.swift; sourceTree = "<group>"; };
 		B482438E22C7841100689A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B482439A22C78AA700689A5E /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
-		B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TelloEDU_Charlie_Puth_Marvin_Gaye .csv"; sourceTree = "<group>"; };
-		B482439E22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TelloEDU_Charlie_Puth_Marvin_Gaye.csv; sourceTree = "<group>"; };
 		B48243A022C79CEF00689A5E /* Tello_G-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tello_G-Bridging-Header.h"; sourceTree = "<group>"; };
 		B48243A122C79CEF00689A5E /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		B48243A222C79CEF00689A5E /* UDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
@@ -95,15 +93,14 @@
 		B482436022C7841000689A5E = {
 			isa = PBXGroup;
 			children = (
+				B42CBE5423178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 */,
+				B42CBE5323178A7B00B0A5D9 /* Stepsheet.csv */,
 				B48243AA22C87FCB00689A5E /* telloJPG.jpeg */,
 				B48243A122C79CEF00689A5E /* Result.swift */,
 				B48243A322C79CF000689A5E /* Socket.swift */,
 				B48243A522C79CF000689A5E /* SwiftSocket.h */,
 				B48243A222C79CEF00689A5E /* UDPClient.swift */,
 				B48243A422C79CF000689A5E /* yudpsocket.c */,
-				B482439E22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv */,
-				B482439C22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv */,
-				B482439A22C78AA700689A5E /* music.mp3 */,
 				B482436B22C7841000689A5E /* Tello_G */,
 				B482438022C7841100689A5E /* Tello_GTests */,
 				B482438B22C7841100689A5E /* Tello_GUITests */,
@@ -257,13 +254,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B482439B22C78AA800689A5E /* music.mp3 in Resources */,
 				B482437722C7841100689A5E /* LaunchScreen.storyboard in Resources */,
-				B482439D22C78FCC00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye .csv in Resources */,
+				B42CBE5523178A7B00B0A5D9 /* Stepsheet.csv in Resources */,
 				B482437422C7841100689A5E /* Assets.xcassets in Resources */,
+				B42CBE5623178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 in Resources */,
 				B482437222C7841000689A5E /* Main.storyboard in Resources */,
 				B48243AB22C87FCC00689A5E /* telloJPG.jpeg in Resources */,
-				B482439F22C79BFF00689A5E /* TelloEDU_Charlie_Puth_Marvin_Gaye.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

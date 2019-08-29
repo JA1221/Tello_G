@@ -14,8 +14,10 @@ class ViewController: UIViewController {
     var timerFlag = false
     var t = 0.0
 //音樂
+    let music_FileName = "Ed Sheeran - Beautiful People"
     var audioPlayer: AVAudioPlayer!
 //csv處理
+    let csv_FileName = "Stepsheet"
     var csv = [[String]]()
     var handle = 1 //處理第幾行
 //tello Socket
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
         instruction.layer.cornerRadius = 10
         
     //prepare music
-        let musicUrl = Bundle.main.url(forResource: "music", withExtension: "mp3")
+        let musicUrl = Bundle.main.url(forResource: music_FileName, withExtension: "mp3")
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: musicUrl!)
             audioPlayer.prepareToPlay()
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
         }
         
     //read csv ＆ 存成二維陣列
-        let csvUrl = Bundle.main.url(forResource: "TelloEDU_Charlie_Puth_Marvin_Gaye", withExtension: "csv")
+        let csvUrl = Bundle.main.url(forResource: csv_FileName, withExtension: "csv")
         let content = try! String(contentsOf: csvUrl!)
         csv = csv_To_Array(content)
         print(csv)
