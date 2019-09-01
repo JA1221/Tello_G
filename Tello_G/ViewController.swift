@@ -5,7 +5,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var csvNameLabel: UILabel!
     @IBOutlet weak var musicNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var instruction: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
     @IBOutlet weak var logTextView: UITextView!
     
@@ -13,7 +12,6 @@ class ViewController: UIViewController {
     let defaultSpeedValue = 50
 //timer計時器
     var timer: Timer?
-    var timerFlag = false
     var t = 0.0
 //音樂
     let music_FileName = "Ed Sheeran - Beautiful People"
@@ -87,9 +85,6 @@ class ViewController: UIViewController {
 //======================= timer ==========================
 //timer開始
     func timerStart(){
-        if timerFlag==true {return}//運行中 return
-        timerFlag = true//旗標設定
-
         //接收資料區清空 ＆ 處理
         data_clear()
         timeHandle()
@@ -100,7 +95,6 @@ class ViewController: UIViewController {
             self.timeHandle()
             self.timeLabel.text = "Time : " + String(self.t) + "s"
         })
-        print(timer?.isValid)
     }
     
 //結束timer
@@ -117,7 +111,6 @@ class ViewController: UIViewController {
         //初始化
             t = 0.0
             handle = 1
-            timerFlag = false
             self.timeLabel.text = "Time : " + String(self.t) + "s"
         }
     }
