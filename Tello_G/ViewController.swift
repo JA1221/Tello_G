@@ -7,6 +7,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
     @IBOutlet weak var logTextView: UITextView!
+    @IBOutlet weak var safeSegment: UISegmentedControl!
     
     
     let defaultSpeedValue = 50
@@ -30,7 +31,6 @@ class ViewController: UIViewController {
 //==================== 畫面載入 ==========================
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 //        test.scrollRangeToVisible(test.selectedRange)
     //圓角
         timeLabel.layer.cornerRadius = 10
@@ -85,6 +85,8 @@ class ViewController: UIViewController {
 //======================= timer ==========================
 //timer開始
     func timerStart(){
+        //
+        safeSegment.isEnabled = false
         //接收資料區清空 ＆ 處理
         data_clear()
         timeHandle()
@@ -99,6 +101,8 @@ class ViewController: UIViewController {
     
 //結束timer
     func timerStop(){
+    //
+        safeSegment.isEnabled = true
     //switch 關
         flyBt.setOn(false, animated: true)
     //停止音樂並關歸零
@@ -119,20 +123,33 @@ class ViewController: UIViewController {
         if Double(csv[handle][0]) == t{//秒數到指令設定的秒數 執行
             print(csv[handle])
             
-            for i in 1...tello_Num{
-                if csv[handle][i] != ""{//i號機有指令
-                    //前一個沒做完 (第一個指令除外) 啟動安全機制
-                    if data[i - 1] != "ok" && t != 0.0{
-                        //stop 編號 1 ~ n
-                        print(String(i) + "號無人機脫隊, 全體迫降")
-                        show(String(i) + "號無人機脫隊, 全體迫降")
-                        send("stop")
-                        send("land")
-                        timerStop()
-                        return
+            for i in 0..<tello_Num{
+                if csv[handle][i + 1] != ""{//i號機有指令
+                    
+                    //前一個沒做完(第一個指令除外), safeSegment不為0 啟動安全機制
+                    if data[i] != "ok" && t != 0.0 && safeSegment.selectedSegmentIndex != 0{
+                        
+                        if safeSegment.selectedSegmentIndex == 1{
+                            print(String(i + 1) + "號脫隊, 全體迫降")
+                            show_add(String(i + 1) + "號脫隊, 全體迫降")
+                            send("stop")
+                            send("land")
+                            timerStop()
+                            return
+                        }else if safeSegment.selectedSegmentIndex == 2{
+                            if data[i] == "landed"{
+                                continue
+                            }
+                            
+                            print(String(i + 1) + "號脫隊 迫降")
+                            show_add(String(i + 1) + "號脫隊 迫降")
+                            send(i , "stop")
+                            send(i, "land")
+                            data[i] = "landed"
+                        }
                     //安全 可執行指令前清空接收區
                     }else{
-                        data[i - 1] = ""
+                        data[i] = ""
                     }
                 }
             }
@@ -353,7 +370,7 @@ class ViewController: UIViewController {
         logTextView.text = s
     }
     func show_add(_ s:String){
-        logTextView.text = (logTextView.text ?? "") + s
+        logTextView.text = (logTextView.text ?? "") + "\n" + s
         logTextView.scrollRangeToVisible(logTextView.selectedRange)
     }
     func log_clear(){

@@ -231,12 +231,28 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Xlc-2D-jnW">
-                                <rect key="frame" x="16" y="160" width="343" height="41"/>
+                                <rect key="frame" x="16" y="142" width="343" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TEr-gN-4QT" userLabel="safe segment">
+                                <rect key="frame" x="122" y="202" width="237" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="無"/>
+                                    <segment title="全體"/>
+                                    <segment title="個體"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="安全迫降" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kco-yG-J6P">
+                                <rect key="frame" x="37" y="205" width="70" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -246,6 +262,7 @@
                         <outlet property="flyBt" destination="2fK-Ab-aPW" id="Dod-Gw-vNU"/>
                         <outlet property="logTextView" destination="Xlc-2D-jnW" id="uSG-iG-cbU"/>
                         <outlet property="musicNameLabel" destination="dIL-pu-LGj" id="Nks-9R-SAj"/>
+                        <outlet property="safeSegment" destination="TEr-gN-4QT" id="73m-fa-4Ul"/>
                         <outlet property="timeLabel" destination="qil-kv-L8W" id="5Vz-y4-PMt"/>
                     </connections>
                 </viewController>
