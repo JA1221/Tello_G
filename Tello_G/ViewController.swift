@@ -7,6 +7,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var instruction: UILabel!
     @IBOutlet weak var flyBt: UISwitch!
+    @IBOutlet weak var logTextView: UITextView!
+    
     
     let defaultSpeedValue = 50
 //timer計時器
@@ -26,13 +28,15 @@ class ViewController: UIViewController {
     let port = 8889 //Tello 接收端口
     let sendPort_1st = 60000 // 發送端口起始編號 ex. 1:6000, 2:6001, 3: 6002
     var data = [String]()
+    
 //==================== 畫面載入 ==========================
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        test.scrollRangeToVisible(test.selectedRange)
     //圓角
         timeLabel.layer.cornerRadius = 10
-        instruction.layer.cornerRadius = 10
+        logTextView.layer.cornerRadius = 10
         
     //prepare music
         let musicUrl = Bundle.main.url(forResource: music_FileName, withExtension: "mp3")
@@ -57,7 +61,11 @@ class ViewController: UIViewController {
         create_Tello_UDP()
         recvData()
     }
-//==================== 檔案處理 ==========================
+    @IBAction func test(_ sender: Any) {
+        logTextView.text = (logTextView.text ?? "") + "\n123"
+        logTextView.scrollRangeToVisible(logTextView.selectedRange)
+    }
+    //==================== 檔案處理 ==========================
     func saveFile(source: URL, destination: URL?, fileName: String){
         var dest = destination
         if dest==nil{
@@ -92,6 +100,7 @@ class ViewController: UIViewController {
             self.timeHandle()
             self.timeLabel.text = "Time : " + String(self.t) + "s"
         })
+        print(timer?.isValid)
     }
     
 //結束timer
@@ -270,7 +279,7 @@ class ViewController: UIViewController {
     @IBAction func begin(_ sender: UISwitch) {
         if sender.isOn == true{
             audioPlayer.play()//播放音樂
-            timerStart()//timer啟動
+            timerStart()//timer啟動·
             show("開始")
         }else{
             //tello降落
@@ -347,9 +356,15 @@ class ViewController: UIViewController {
     }
     
     func show(_ s:String){
-        DispatchQueue.main.async {
-            self.instruction.text = s
-        }
+//        DispatchQueue.main.async
+        logTextView.text = s
+    }
+    func show_add(_ s:String){
+        logTextView.text = (logTextView.text ?? "") + s
+        logTextView.scrollRangeToVisible(logTextView.selectedRange)
+    }
+    func log_clear(){
+        logTextView.text = ""
     }
 //=================================================
     override func viewDidDisappear(_ animated: Bool) {
