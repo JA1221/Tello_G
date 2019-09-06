@@ -216,7 +216,8 @@ class ViewController: UIViewController {
         }
     }
     func get_String_Data(_ data: [Byte]) -> (String){//轉換陣列->String
-        let string1 = String(data: Data(data), encoding: .utf8) ?? ""
+        var string1 = String(data: Data(data), encoding: .utf8) ?? ""
+        string1 = string1.trimmingCharacters(in: .newlines)
         return string1
     }
     
@@ -281,6 +282,10 @@ class ViewController: UIViewController {
     @IBAction func ccw(_ sender: Any) {
         send("ccw 45")
     }
+    @IBAction func battery(_ sender: Any) {
+        send("battery?")
+    }
+    
     @IBAction func set_AP_Mode(_ sender: Any) {
         let alert = UIAlertController(title: "設定Station Mode", message: "填入 ＷiFi名稱 與 密碼", preferredStyle: .alert)
         alert.addTextField { (UITextField) in
