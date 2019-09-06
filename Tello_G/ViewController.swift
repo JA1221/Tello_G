@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 //==================== 畫面載入 ==========================
     override func viewDidLoad() {
         super.viewDidLoad()
-//        test.scrollRangeToVisible(test.selectedRange)
+        UIApplication.shared.isIdleTimerDisabled = true //螢幕恆亮不休眠
     //圓角
         timeLabel.layer.cornerRadius = 10
         logTextView.layer.cornerRadius = 10
@@ -125,7 +125,7 @@ class ViewController: UIViewController {
                     
                     //前一個沒做完(第一個指令除外), safeSegment不為0 啟動安全機制
                     if data[i] != "ok" && t != 0.0 && safeSegment.selectedSegmentIndex != 0{
-                        
+                        //群體迫降
                         if safeSegment.selectedSegmentIndex == 1{
                             print(String(i + 1) + "號脫隊, 全體迫降")
                             show_add(String(i + 1) + "號脫隊, 全體迫降")
@@ -133,8 +133,9 @@ class ViewController: UIViewController {
                             send("land")
                             timerStop()
                             return
+                        //個體迫降
                         }else if safeSegment.selectedSegmentIndex == 2{
-                            if data[i] == "landed"{
+                            if data[i] == "landed"{//已降落 忽略
                                 continue
                             }
                             
@@ -142,7 +143,17 @@ class ViewController: UIViewController {
                             show_add(String(i + 1) + "號脫隊 迫降")
                             send(i , "stop")
                             send(i, "land")
-                            data[i] = "landed"
+                            data[i] = "landed"//將對號接收區設成"landed"已降落
+                            
+                            //當全部的接收區都為"landed" 直接結束
+                            var stop = true
+                            for i in 0..<data.count{
+                                stop = stop && data[i] == "landed"
+                            }
+                            if stop == true{
+                                show_add("場上已無Tello, 結束。")
+                                timerStop()
+                            }
                         }
                     //安全 可執行指令前清空接收區
                     }else{
