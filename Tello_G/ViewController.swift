@@ -209,7 +209,7 @@ class ViewController: UIViewController {
                     if s.0==nil{break}//被強制結束 跳出
                     
                     self.data[i] = self.get_String_Data(s.0!)//儲存
-                    print("Tello" + String(i + 1) + ", recv:" + self.data[i])//印出接收到的資料(ex. Tello1, recv:OK)
+                    self.show_add("Tello" + String(i + 1) + " : " + self.data[i])//印出接收到的資料(ex. Tello1, recv:OK)
                 }
                 print("Tello" + String(i + 1) + " is closed.")
             }
@@ -386,15 +386,20 @@ class ViewController: UIViewController {
     }
     
     func show(_ s:String){
-//        DispatchQueue.main.async
-        logTextView.text = s
+        DispatchQueue.main.async{
+            self.logTextView.text = s
+        }
     }
     func show_add(_ s:String){
-        logTextView.text = (logTextView.text ?? "") + "\n" + s
-        logTextView.scrollRangeToVisible(logTextView.selectedRange)
+        DispatchQueue.main.async {
+            self.logTextView.text = (self.logTextView.text ?? "") + "\n" + s
+            self.logTextView.scrollRangeToVisible(self.logTextView.selectedRange)
+        }
     }
     func log_clear(){
-        logTextView.text = ""
+        DispatchQueue.main.async {
+            self.logTextView.text = ""
+        }
     }
 //=================================================
     override func viewDidDisappear(_ animated: Bool) {
