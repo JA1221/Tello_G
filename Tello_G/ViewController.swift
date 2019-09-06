@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var csv = [[String]]()
     var handle = 1 //處理第幾行
 //tello Socket
+    let default_socket = UDPClient(address: "192.168.10.1", port: 8889, myAddresss: "", myPort: 8889)
     var tello_Num = 0
     var tello = [UDPClient]() //UDP 通訊陣列
     let port = 8889 //Tello 接收端口
@@ -58,10 +59,6 @@ class ViewController: UIViewController {
     //創建tello 的 socket陣列
         create_Tello_UDP()
         recvData()
-    }
-    @IBAction func test(_ sender: Any) {
-        logTextView.text = (logTextView.text ?? "") + "\n123"
-        logTextView.scrollRangeToVisible(logTextView.selectedRange)
     }
     //==================== 檔案處理 ==========================
     func saveFile(source: URL, destination: URL?, fileName: String){
@@ -158,7 +155,7 @@ class ViewController: UIViewController {
             
             if csv[handle][0] == "end" || csv[handle][0] == ""{//時間軸遇到 "end" or 沒標示時間 -> 結束timer
                 timerStop()
-                show("結束")
+                show_add("結束")
             }
         }
     }
@@ -283,6 +280,29 @@ class ViewController: UIViewController {
     }
     @IBAction func ccw(_ sender: Any) {
         send("ccw 45")
+    }
+    @IBAction func set_AP_Mode(_ sender: Any) {
+        let alert = UIAlertController(title: "設定Station Mode", message: "填入 ＷiFi名稱 與 密碼", preferredStyle: .alert)
+        alert.addTextField { (UITextField) in
+            UITextField.placeholder = "SSID"
+        }
+        alert.addTextField { (UITextField) in
+            UITextField.placeholder = "password"
+            UITextField.isSecureTextEntry = true
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+            guard let ssid = alert.textFields![0].text else{ return}
+            guard let password = alert.textFields![1].text else{ return}
+            
+            if ssid == ""{
+                self.show("ＷiFi名稱不可空白")
+                return
+            }
+            _ = self.default_socket.send(string: "ap " + ssid + " " + password)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
 //=================== Switch ==================
