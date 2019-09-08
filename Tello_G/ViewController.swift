@@ -297,8 +297,8 @@ class ViewController: UIViewController {
         send("battery?")
     }
     
-    @IBAction func set_AP_Mode(_ sender: Any) {
-        let alert = UIAlertController(title: "設定Station Mode", message: "填入 ＷiFi名稱 與 密碼", preferredStyle: .alert)
+    @IBAction func set_Station_Mode(_ sender: Any) {
+        let alert = UIAlertController(title: "填入 ＷiFi名稱 與 密碼", message: "*當需要重新設置 或 發生問題時\n請在開機後長按電源按紐 5秒，即可恢復原廠設置。", preferredStyle: .alert)
         alert.addTextField { (UITextField) in
             UITextField.placeholder = "SSID"
         }
