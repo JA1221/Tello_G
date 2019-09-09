@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B42CBE5523178A7B00B0A5D9 /* Stepsheet.csv in Resources */ = {isa = PBXBuildFile; fileRef = B42CBE5323178A7B00B0A5D9 /* Stepsheet.csv */; };
 		B42CBE5623178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B42CBE5423178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 */; };
+		B451BE432326439F002C525E /* old.csv in Resources */ = {isa = PBXBuildFile; fileRef = B451BE422326439F002C525E /* old.csv */; };
 		B482436D22C7841000689A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482436C22C7841000689A5E /* AppDelegate.swift */; };
 		B482436F22C7841000689A5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B482436E22C7841000689A5E /* ViewController.swift */; };
 		B482437222C7841000689A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B482437022C7841000689A5E /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		B42CBE5323178A7B00B0A5D9 /* Stepsheet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Stepsheet.csv; sourceTree = "<group>"; };
 		B42CBE5423178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ed Sheeran - Beautiful People.mp3"; sourceTree = "<group>"; };
+		B451BE422326439F002C525E /* old.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = old.csv; sourceTree = "<group>"; };
 		B482436922C7841000689A5E /* Tello_G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tello_G.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B482436C22C7841000689A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B482436E22C7841000689A5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		B482436022C7841000689A5E = {
 			isa = PBXGroup;
 			children = (
+				B451BE422326439F002C525E /* old.csv */,
 				B42CBE5423178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 */,
 				B42CBE5323178A7B00B0A5D9 /* Stepsheet.csv */,
 				B48243AA22C87FCB00689A5E /* telloJPG.jpeg */,
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B482437722C7841100689A5E /* LaunchScreen.storyboard in Resources */,
+				B451BE432326439F002C525E /* old.csv in Resources */,
 				B42CBE5523178A7B00B0A5D9 /* Stepsheet.csv in Resources */,
 				B482437422C7841100689A5E /* Assets.xcassets in Resources */,
 				B42CBE5623178A7B00B0A5D9 /* Ed Sheeran - Beautiful People.mp3 in Resources */,

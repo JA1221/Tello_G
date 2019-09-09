@@ -54,6 +54,7 @@
                                 <state key="normal" title="讀取CSV"/>
                                 <connections>
                                     <action selector="readCSV:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aFA-h4-lC5"/>
+                                    <action selector="showCSV:" destination="BYZ-38-t0r" eventType="touchDragOutside" id="fSg-uR-qOQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="default.csv" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="NCO-wi-kas">

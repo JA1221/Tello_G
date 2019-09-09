@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     
     //csv處理
     let csv_FileName = "Stepsheet"
+    var content = ""
     var csv = [[String]]()//CSV 主要資料陣列
     var handle = 1 //處理第幾行
     
@@ -53,7 +54,7 @@ class ViewController: UIViewController {
         
         //read csv ＆ 存成二維陣列
         let csvUrl = Bundle.main.url(forResource: csv_FileName, withExtension: "csv")
-        let content = try! String(contentsOf: csvUrl!)
+        content = try! String(contentsOf: csvUrl!)
         csv = csv_To_Array(content)
         print(csv)
         
@@ -396,7 +397,10 @@ class ViewController: UIViewController {
         
         return array
     }
-//================== read mp3 =====================
+    @IBAction func showCSV(_ sender: Any) {
+        alert(content)
+    }
+    //================== read mp3 =====================
     //開啟mp3選擇器
     @IBAction func readMusic(_ sender: Any) {
         let musicPicker = UIDocumentPickerViewController(documentTypes: ["public.mp3"], in: .open)
@@ -480,9 +484,9 @@ extension ViewController: UIDocumentPickerDelegate{
         
         //*** csv檔處理 ***
         if fileType == "csv"{
-            let s = try! String(contentsOf: selectedFileURL)
+            content = try! String(contentsOf: selectedFileURL)
             
-            csv = csv_To_Array(s)//轉陣列
+            csv = csv_To_Array(content)//轉陣列
             print(csv)
             create_Tello_UDP()//重新宣告UDP
             recvData()//開啟資料接收
