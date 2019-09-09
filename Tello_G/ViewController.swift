@@ -133,9 +133,9 @@ class ViewController: UIViewController {
             for i in 0..<tello_Num{
                 if csv[handle][i + 1] != ""{//i號機有指令
                     
-                    //前一個沒做完(第一個指令除外), safeSegment不為0 啟動安全機制
-                    if data[i] != "ok" && t != 0.0 && safeSegment.selectedSegmentIndex != 0{
-                        //群體迫降
+                    //前一個沒做完(第一個指令除外), 安全模式不為"無" 啟動安全機制
+                    if data[i] != "ok" && handle != 1 && safeSegment.selectedSegmentIndex != 0{
+                        //1 群體迫降
                         if safeSegment.selectedSegmentIndex == 1{
                             print(String(i + 1) + "號脫隊, 全體迫降")
                             show_add(String(i + 1) + "號脫隊, 全體迫降")
@@ -144,36 +144,42 @@ class ViewController: UIViewController {
                             timerStop()
                             return
                             
-                        //個體迫降
+                        //2 個體迫降
                         }else if safeSegment.selectedSegmentIndex == 2{
-                            if data[i] == "landed"{//已降落 忽略
+                            //已降落 略過
+                            if data[i] == "landed"{
                                 continue
                             }
                             
+                            //執行單機迫降
                             print(String(i + 1) + "號脫隊 迫降")
                             show_add(String(i + 1) + "號脫隊 迫降")
                             send(i , "stop")
                             send(i, "land")
                             data[i] = "landed"//將對號接收區設成"landed"已降落
                             
-                            //當全部的接收區都為"landed" 直接結束
+                            //當Tello都已迫降 直接結束
                             var stop = true
+                            
                             for i in 0..<data.count{
                                 stop = stop && data[i] == "landed"
                             }
                             if stop == true{
                                 show_add("場上已無Tello, 結束。")
                                 timerStop()
+                                return
                             }
+                            
+                            //直接檢查下一台
+                            continue
                         }
-                        
-                    //安全 可執行指令前清空接收區
+                    //通過安全檢查
                     }else{
-                        data[i] = ""
+                        data[i] = ""//清空接收區
+                        send(i, csv[handle][i + 1])//傳送相對指令
                     }
                 }
             }
-            send(csv[handle])//傳送指令
             handle += 1//下一條指令
             
             if csv[handle][0] == "end" || csv[handle][0] == ""{//時間軸遇到 "end" or 沒標示時間 -> 結束timer
