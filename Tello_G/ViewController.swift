@@ -332,7 +332,7 @@ class ViewController: UIViewController {
     
     //設定單機Tello 切換至station mode （連結）指定WiFi
     @IBAction func set_Station_Mode(_ sender: Any) {
-        let alert = UIAlertController(title: "填入 ＷiFi名稱 與 密碼", message: "*當需要重新設置 或 發生問題時\n請在開機後長按電源按紐 5秒，即可恢復原廠設置。", preferredStyle: .alert)
+        let alert = UIAlertController(title: "填入 ＷiFi名稱 與 密碼", message: "＊請先連結Tello的WiFi\n\n注意：當需要重新設置 或 發生問題時\n請在開機後長按電源按紐 5秒，即可恢復原廠設置。", preferredStyle: .alert)
         
         //SSID & password輸入框
         alert.addTextField { (UITextField) in
@@ -352,6 +352,7 @@ class ViewController: UIViewController {
                 self.show("ＷiFi名稱不可空白")
                 return
             }
+            _ = self.default_socket.send(string: "command")
             _ = self.default_socket.send(string: "ap " + ssid + " " + password)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
