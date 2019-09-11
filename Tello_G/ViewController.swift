@@ -250,7 +250,7 @@ class ViewController: UIViewController {
                     if s.0==nil{break}//被強制結束 跳出
                     
                     self.data[i] = self.get_String_Data(s.0!)//儲存
-                    self.show_add("Tello" + String(i + 1) + " : " + self.data[i])//印出接收到的資料(ex. Tello1, recv:OK)
+                    self.show_add(String(i + 1) + " : " + self.data[i])//印出接收到的資料(ex. 1:OK)
                 }
                 print("Tello" + String(i + 1) + " is closed.")
             }
@@ -349,7 +349,7 @@ class ViewController: UIViewController {
             guard let password = alert.textFields![1].text else{ return}
             
             if ssid == ""{
-                self.show("ＷiFi名稱不可空白")
+                self.show("SSID不可空白")
                 return
             }
             _ = self.default_socket.send(string: "command")
