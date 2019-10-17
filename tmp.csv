@@ -1,0 +1,23 @@
+s \ ip,192.168.1.107,192.168.1.101,192.168.1.102
+0,command,command,command
+0.5,mon,mon,mon
+1,takeoff,,
+3,,takeoff,takeoff
+10,jump 80 0 100 100 0 m2 m7,jump -80 0 70 100 0 m6 m1,jump -80 0 70 100 0 m8 m3
+20,go 0 0 70 100 m7,jump 40 -40 100 100 0 m1 m4,jump 40 40 100 100 0 m3 m5
+25,cw 45,cw 45,cw 45
+30,ccw 90,ccw 90,ccw 90
+35,cw 45,cw 45,cw 45
+39,command,flip b,flip b
+43,command,flip l,flip r
+47,go 0 0 70 100 m7,go 0 0 70 100 m1,go 0 0 70 100 m3
+51,jump 0 80 100 100 0 m7 m6,jump 0 -80 100 100 0 m1 m2,jump 80 0 100 100 0 m3 m8
+57,jump -80 0 70 100 0 m6 m1,jump 0 -80 70 100 0 m2 m3,jump 0 80 70 100 0 m8 m7
+63,jump 0 -80 100 100 0 m1 m2,jump 80 0 100 100 0 m3 m8,jump 0 80 100 100 0 m7 m6
+69,jump 80 0 100 100 180 m2 m7,cw 180,cw 180
+75,go 0 0 50 100 m7,go 0 0 50 100 m8,go 0 0 50 100 m6
+81,ccw 360 ,ccw 360,ccw 360
+91,go 0 0 70 100 m7 ,go 0 0 110 100 m8,go 0 0 110 100 m6
+98,go 0 0 110 100 m7 ,go 0 0 70 100 m8,go 0 0 70 100 m6
+105,flip f,land,land
+108,land,,

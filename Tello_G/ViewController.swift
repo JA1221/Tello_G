@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var t = 0.0
     
     //音樂
-    let music_FileName = "Ed Sheeran - Beautiful People"
+    let music_FileName = "stephen-curry-mix-beautiful-people"
     var audioPlayer: AVAudioPlayer!
     
     //csv處理
@@ -182,6 +182,10 @@ class ViewController: UIViewController {
                 }
             }
             handle += 1//下一條指令
+            if handle >= csv.count{// bug 暫時修補
+                timerStop()
+                show_add("結束")
+            }
             
             if csv[handle][0] == "end" || csv[handle][0] == ""{//時間軸遇到 "end" or 沒標示時間 -> 結束timer
                 timerStop()
